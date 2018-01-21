@@ -9,6 +9,17 @@
 import Foundation
 
 
+public typealias Integral = BinaryInteger & FixedWidthInteger
+public typealias Fractional = BinaryFloatingPoint
+
+public func toDouble<F>(_ f:F) -> Double where F : Fractional {
+  if let ff = f as? Float {
+    return Double(ff)
+  } else {
+    return f as! Double
+  }
+}
+
 public struct Math {
   public static func modulusWithoutSign(_ a:Int, n:Int) -> Int {
     return (a % (n + n)) % n
@@ -32,5 +43,15 @@ public struct Math {
   
   public static func rounded3(_ d:Double) -> String {
     return String(format: "%.3f", d)
+  }
+}
+
+// running `map` on a int gen, might negate things, reversing the range
+// so we use a slightly more careufl clamp
+func clamp<T>(_ t:T, _ lo:T, _ hi:T) -> T where T : Comparable {
+  if lo > hi {
+    return min(lo, max(t, hi))
+  } else {
+    return min(hi, max(t, lo))
   }
 }

@@ -14,6 +14,8 @@
 		4C8C57AE200B044B00F34213 /* Hogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8C57A0200B044A00F34213 /* Hogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C8C57BA200B049700F34213 /* Gen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C57B9200B049700F34213 /* Gen.swift */; };
 		4CA363C4200B0B1000B2C14C /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA363C3200B0B1000B2C14C /* Math.swift */; };
+		4CA9F397201422EB0041ABF6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA9F396201422EB0041ABF6 /* Range.swift */; };
+		4CA9F399201424080041ABF6 /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA9F398201424080041ABF6 /* Lazy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,8 @@
 		4C8C57AD200B044B00F34213 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C8C57B9200B049700F34213 /* Gen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen.swift; sourceTree = "<group>"; };
 		4CA363C3200B0B1000B2C14C /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		4CA9F396201422EB0041ABF6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Range.swift; path = ../../../../hogger/Hogger/Sources/Hogger/Range.swift; sourceTree = "<group>"; };
+		4CA9F398201424080041ABF6 /* Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				4C8C57B9200B049700F34213 /* Gen.swift */,
 				4C2C8390200B053A00EC1BEB /* Tree.swift */,
 				4C2C8392200B057800EC1BEB /* Random.swift */,
+				4CA9F396201422EB0041ABF6 /* Range.swift */,
+				4CA9F398201424080041ABF6 /* Lazy.swift */,
 			);
 			path = Hogger;
 			sourceTree = "<group>";
@@ -226,9 +232,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C8C57BA200B049700F34213 /* Gen.swift in Sources */,
+				4CA9F399201424080041ABF6 /* Lazy.swift in Sources */,
 				4C2C8391200B053A00EC1BEB /* Tree.swift in Sources */,
 				4C2C8393200B057800EC1BEB /* Random.swift in Sources */,
 				4CA363C4200B0B1000B2C14C /* Math.swift in Sources */,
+				4CA9F397201422EB0041ABF6 /* Range.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +386,7 @@
 				INFOPLIST_FILE = Hogger/Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=100";
 				PRODUCT_BUNDLE_IDENTIFIER = io.michaelshaw.Hogger;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -417,6 +426,7 @@
 				DEVELOPMENT_TEAM = ZY3Q4H5HAL;
 				INFOPLIST_FILE = HoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = io.michaelshaw.HoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -432,6 +442,7 @@
 				DEVELOPMENT_TEAM = ZY3Q4H5HAL;
 				INFOPLIST_FILE = HoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = io.michaelshaw.HoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
