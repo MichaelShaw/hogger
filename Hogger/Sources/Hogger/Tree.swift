@@ -50,17 +50,55 @@ public struct Tree<A> { // rename this to tree?
   public static func single(_ a:A) -> Tree<A> {
     return Tree(val: a, children: Lazy.evaluated([]))
   }
+  
+  public func map<B>(f: @escaping (A) -> B) -> Tree<B> {
+    return Tree<B>(
+      val: f(self.val),
+      children: Lazy.lzy(f: { () -> [Tree<B>] in
+        let children : [Tree<A>] = self.children.force()
+        let crappo : [Tree<B>] = children.map { treeA in treeA.map(f: f) }
+        return crappo
+      })
+    )
+  }
+  
+  public func flatMap<B>(f: @escaping (A) -> Tree<B>) -> Tree<B> {
+    let res : Tree<B> = f(self.val)
+    let treeB : Tree<B> = Tree<B>(
+      val: res.val,
+      children: Lazy.lzy { () -> [Tree<B>] in
+        let children : [Tree<A>] = self.children.force()
+        var tbs : [Tree<B>] = children.map { (ta : Tree<A>) -> Tree<B> in
+          return ta.flatMap(f: f)
+        }
+        for c in res.children.force() {
+          tbs.append(c)
+        }
+        return tbs
+    })
+    return treeB
+  }
 }
-
-public func map<A,B>(tree:Tree<A>, f: @escaping (A) -> B) -> Tree<B> {
-  return Tree(
-    val: f(tree.val),
-    children: Lazy.lzy {
-      let children : [Tree<A>] = tree.children.force()
-      return children.map { treeA in map(tree:treeA, f: f) }
-    }
-  )
-}
+//
+//
+//public func flatMap<A, B>(tree:Tree<A>, f: @escaping (A) -> Tree<B>) -> Tree<B> {
+//  let res : Tree<B> = f(tree.val)
+//  let nodeB : Tree<B> = Tree(
+//    val: res.val,
+//    children: Lazy.lzy { () -> [Tree<B>] in
+//      let children : [Tree<A>] = tree.children.force()
+//      var nbs : [Tree<B>] = children.map { (na : Tree<A>) -> Tree<B> in
+//        return flatMap(tree: na, f: f)
+//      }
+//      for c in res.children.force() {
+//        nbs.append(c)
+//      }
+//      return nbs
+//  })
+//  return nodeB
+//}
+//
+//
 
 public func concat<A>(_ prefix:[A], _ suffix:[A]) -> [A] {
   var ot : [A] = []
@@ -68,21 +106,3 @@ public func concat<A>(_ prefix:[A], _ suffix:[A]) -> [A] {
   ot.append(contentsOf: suffix)
   return ot
 }
-
-public func flatMap<A, B>(tree:Tree<A>, f: @escaping (A) -> Tree<B>) -> Tree<B> {
-  let res : Tree<B> = f(tree.val)
-  let nodeB : Tree<B> = Tree(
-    val: res.val,
-    children: Lazy.lzy { () -> [Tree<B>] in
-      let children : [Tree<A>] = tree.children.force()
-      var nbs : [Tree<B>] = children.map { (na : Tree<A>) -> Tree<B> in
-        return flatMap(tree: na, f: f)
-      }
-      for c in res.children.force() {
-        nbs.append(c)
-      }
-      return nbs
-  })
-  return nodeB
-}
-

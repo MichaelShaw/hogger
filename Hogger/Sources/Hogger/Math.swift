@@ -21,6 +21,10 @@ public func toDouble<F>(_ f:F) -> Double where F : Fractional {
 }
 
 public struct Math {
+  public static func approxEqual<F>(_ lhs:F, _ rhs: F, epsilon:F) -> Bool where F : Fractional {
+    return abs(lhs - rhs) < epsilon
+  }
+  
   public static func modulusWithoutSign(_ a:Int, n:Int) -> Int {
     return (a % (n + n)) % n
   }

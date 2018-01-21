@@ -16,6 +16,7 @@
 		4CA363C4200B0B1000B2C14C /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA363C3200B0B1000B2C14C /* Math.swift */; };
 		4CA9F397201422EB0041ABF6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA9F396201422EB0041ABF6 /* Range.swift */; };
 		4CA9F399201424080041ABF6 /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA9F398201424080041ABF6 /* Lazy.swift */; };
+		4CA9F39B20143D030041ABF6 /* Shrink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA9F39A20143D030041ABF6 /* Shrink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		4CA363C3200B0B1000B2C14C /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		4CA9F396201422EB0041ABF6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Range.swift; path = ../../../../hogger/Hogger/Sources/Hogger/Range.swift; sourceTree = "<group>"; };
 		4CA9F398201424080041ABF6 /* Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
+		4CA9F39A20143D030041ABF6 /* Shrink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shrink.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				4C2C8392200B057800EC1BEB /* Random.swift */,
 				4CA9F396201422EB0041ABF6 /* Range.swift */,
 				4CA9F398201424080041ABF6 /* Lazy.swift */,
+				4CA9F39A20143D030041ABF6 /* Shrink.swift */,
 			);
 			path = Hogger;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				4CA9F399201424080041ABF6 /* Lazy.swift in Sources */,
 				4C2C8391200B053A00EC1BEB /* Tree.swift in Sources */,
 				4C2C8393200B057800EC1BEB /* Random.swift in Sources */,
+				4CA9F39B20143D030041ABF6 /* Shrink.swift in Sources */,
 				4CA363C4200B0B1000B2C14C /* Math.swift in Sources */,
 				4CA9F397201422EB0041ABF6 /* Range.swift in Sources */,
 			);

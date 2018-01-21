@@ -9,24 +9,24 @@
 public typealias Size = Int
 typealias Rng = Random
 
-// should we make our iterators fallible?
+// should we make our generators fallible? (so we can define filter?)
 struct Gen<T> {
   let unGen : (Size, Rng) -> Tree<T>
-}
-
-func map<A, B>(gen: Gen<A>, f: @escaping (A) -> B) -> Gen<B> {
-  return Gen(unGen: { (size, rng) -> Tree<B> in
-    let nodeA = gen.unGen(size, rng)
-    return map(tree: nodeA, f: f)
-  })
-}
-
-func flatMap<A, B>(gen: Gen<A>, f: @escaping (A) -> Gen<B>) -> Gen<B> {
-  return Gen(unGen: { (size, rng) -> Tree<B> in
-    let nodeA = gen.unGen(size, rng)
-    return flatMap(tree: nodeA) { a -> Tree<B> in
-      let genB = f(a)
-      return genB.unGen(size, rng)
-    }
-  })
+  
+  func map<B>(f: @escaping (T) -> B) -> Gen<B> {
+    return Gen<B>(unGen: { (size, rng) -> Tree<B> in
+      let treeA = self.unGen(size, rng)
+      return treeA.map(f: f)
+    })
+  }
+  
+  func flatMap<B>(f: @escaping (T) -> Gen<B>) -> Gen<B> {
+    return Gen<B>(unGen: { (size, rng) -> Tree<B> in
+      let treeA = self.unGen(size, rng)
+      return treeA.flatMap { a -> Tree<B> in
+        let genB = f(a)
+        return genB.unGen(size, rng)
+      }
+    })
+  }
 }
