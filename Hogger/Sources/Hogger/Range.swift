@@ -99,8 +99,8 @@ public func exponentialFracFrom<F>(origin: F, lower: F, upper: F) -> Range<F> wh
 }
 
 public func scaleLinear<N>(size:Size, a:N, b:N) -> N where N : Integral {
-  let cSize = clamp(size, 0, 99)
-  let diff = ((b - a) * N(cSize)) / 99
+  let cSize : Size = clamp(size, 0, 99)
+  let diff : N = ((b - a) * N(cSize)) / 99
   return a + diff
 }
 

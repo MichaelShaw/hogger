@@ -79,30 +79,4 @@ public struct Tree<A> { // rename this to tree?
     return treeB
   }
 }
-//
-//
-//public func flatMap<A, B>(tree:Tree<A>, f: @escaping (A) -> Tree<B>) -> Tree<B> {
-//  let res : Tree<B> = f(tree.val)
-//  let nodeB : Tree<B> = Tree(
-//    val: res.val,
-//    children: Lazy.lzy { () -> [Tree<B>] in
-//      let children : [Tree<A>] = tree.children.force()
-//      var nbs : [Tree<B>] = children.map { (na : Tree<A>) -> Tree<B> in
-//        return flatMap(tree: na, f: f)
-//      }
-//      for c in res.children.force() {
-//        nbs.append(c)
-//      }
-//      return nbs
-//  })
-//  return nodeB
-//}
-//
-//
 
-public func concat<A>(_ prefix:[A], _ suffix:[A]) -> [A] {
-  var ot : [A] = []
-  ot.append(contentsOf: prefix)
-  ot.append(contentsOf: suffix)
-  return ot
-}

@@ -8,10 +8,7 @@
 
 import Foundation
 
-struct Shrink {
-  // need array shrinking.
-}
-
+// need array shrinking :-/
 
 public func towards<N>(from: N, destination: N) -> [N] where N : Integral {
   if from == destination {

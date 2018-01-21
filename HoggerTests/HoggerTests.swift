@@ -10,16 +10,6 @@ import XCTest
 @testable import Hogger
 
 class HoggerTests: XCTestCase {
-  func testTree() {
-    // This is an example of a functional test case.
-      // Use XCTAssert and related functions to verify your tests produce the correct results.
-    let single = Tree.single(12)
-    
-    let doubled = single.map { n in n * 2 }
-    
-//    print("what is doubled -> \(doubled)")
-  }
-  
   func testTowards() {
     let a = towards(from: 0, destination: 100)
     XCTAssert(a == [0,50,75,88,94,97,99], "towards(0,100) was \(a)")

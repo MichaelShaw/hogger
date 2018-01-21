@@ -50,6 +50,13 @@ public struct Math {
   }
 }
 
+public func concat<A>(_ prefix:[A], _ suffix:[A]) -> [A] {
+  var ot : [A] = []
+  ot.append(contentsOf: prefix)
+  ot.append(contentsOf: suffix)
+  return ot
+}
+
 // running `map` on a int gen, might negate things, reversing the range
 // so we use a slightly more careufl clamp
 func clamp<T>(_ t:T, _ lo:T, _ hi:T) -> T where T : Comparable {

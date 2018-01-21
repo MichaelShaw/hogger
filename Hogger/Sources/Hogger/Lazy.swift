@@ -6,6 +6,28 @@
 //  Copyright © 2018 Michael Shaw. All rights reserved.
 //
 
+enum Stream<A> : Sequence {
+  case cons(head: A, tail: () -> Stream<A>)
+  case empty
+  
+  func makeIterator() -> StreamIter<A> {
+    return StreamIter(stream: self)
+  }
+}
+
+struct StreamIter<A> : IteratorProtocol {
+  var stream : Stream<A>
+  
+  mutating func next() -> A? {
+    switch self.stream {
+    case .empty: return nil
+    case let .cons(h, tail):
+      self.stream = tail()
+      return h
+    }
+  }
+}
+
 public class Lazy<A> {
   private var thunk:Thunk<A>
   
