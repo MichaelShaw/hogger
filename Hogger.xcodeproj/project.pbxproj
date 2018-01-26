@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C2C8391200B053A00EC1BEB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C8390200B053A00EC1BEB /* Tree.swift */; };
 		4C2C8393200B057800EC1BEB /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C8392200B057800EC1BEB /* Random.swift */; };
 		4C8C57A7200B044B00F34213 /* Hogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8C579D200B044A00F34213 /* Hogger.framework */; };
-		4C8C57AC200B044B00F34213 /* HoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C57AB200B044B00F34213 /* HoggerTests.swift */; };
 		4C8C57AE200B044B00F34213 /* Hogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8C57A0200B044A00F34213 /* Hogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C8C57BA200B049700F34213 /* Gen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C57B9200B049700F34213 /* Gen.swift */; };
+		4CA235C6201ACEAD00C15A8C /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA235C5201ACEAD00C15A8C /* Tree.swift */; };
+		4CA235C8201ACEB600C15A8C /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA235C7201ACEB600C15A8C /* TreeTests.swift */; };
+		4CA235CA201B083C00C15A8C /* ShrinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA235C9201B083C00C15A8C /* ShrinkTests.swift */; };
 		4CA363C4200B0B1000B2C14C /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA363C3200B0B1000B2C14C /* Math.swift */; };
 		4CA9F397201422EB0041ABF6 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA9F396201422EB0041ABF6 /* Range.swift */; };
 		4CA9F399201424080041ABF6 /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA9F398201424080041ABF6 /* Lazy.swift */; };
@@ -30,15 +31,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C2C8390200B053A00EC1BEB /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		4C2C8392200B057800EC1BEB /* Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		4C8C579D200B044A00F34213 /* Hogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Hogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C8C57A0200B044A00F34213 /* Hogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hogger.h; sourceTree = "<group>"; };
 		4C8C57A1200B044A00F34213 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C8C57A6200B044B00F34213 /* HoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C8C57AB200B044B00F34213 /* HoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoggerTests.swift; sourceTree = "<group>"; };
 		4C8C57AD200B044B00F34213 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C8C57B9200B049700F34213 /* Gen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen.swift; sourceTree = "<group>"; };
+		4CA235C5201ACEAD00C15A8C /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		4CA235C7201ACEB600C15A8C /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
+		4CA235C9201B083C00C15A8C /* ShrinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShrinkTests.swift; sourceTree = "<group>"; };
 		4CA363C3200B0B1000B2C14C /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		4CA9F396201422EB0041ABF6 /* Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Range.swift; path = ../../../../hogger/Hogger/Sources/Hogger/Range.swift; sourceTree = "<group>"; };
 		4CA9F398201424080041ABF6 /* Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
@@ -93,8 +95,9 @@
 		4C8C57AA200B044B00F34213 /* HoggerTests */ = {
 			isa = PBXGroup;
 			children = (
-				4C8C57AB200B044B00F34213 /* HoggerTests.swift */,
 				4C8C57AD200B044B00F34213 /* Info.plist */,
+				4CA235C7201ACEB600C15A8C /* TreeTests.swift */,
+				4CA235C9201B083C00C15A8C /* ShrinkTests.swift */,
 			);
 			path = HoggerTests;
 			sourceTree = "<group>";
@@ -114,11 +117,11 @@
 				4C8C57A0200B044A00F34213 /* Hogger.h */,
 				4CA363C3200B0B1000B2C14C /* Math.swift */,
 				4C8C57B9200B049700F34213 /* Gen.swift */,
-				4C2C8390200B053A00EC1BEB /* Tree.swift */,
 				4C2C8392200B057800EC1BEB /* Random.swift */,
 				4CA9F396201422EB0041ABF6 /* Range.swift */,
 				4CA9F398201424080041ABF6 /* Lazy.swift */,
 				4CA9F39A20143D030041ABF6 /* Shrink.swift */,
+				4CA235C5201ACEAD00C15A8C /* Tree.swift */,
 			);
 			path = Hogger;
 			sourceTree = "<group>";
@@ -235,8 +238,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C8C57BA200B049700F34213 /* Gen.swift in Sources */,
+				4CA235C6201ACEAD00C15A8C /* Tree.swift in Sources */,
 				4CA9F399201424080041ABF6 /* Lazy.swift in Sources */,
-				4C2C8391200B053A00EC1BEB /* Tree.swift in Sources */,
 				4C2C8393200B057800EC1BEB /* Random.swift in Sources */,
 				4CA9F39B20143D030041ABF6 /* Shrink.swift in Sources */,
 				4CA363C4200B0B1000B2C14C /* Math.swift in Sources */,
@@ -248,7 +251,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C8C57AC200B044B00F34213 /* HoggerTests.swift in Sources */,
+				4CA235CA201B083C00C15A8C /* ShrinkTests.swift in Sources */,
+				4CA235C8201ACEB600C15A8C /* TreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

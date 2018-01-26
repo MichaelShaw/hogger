@@ -8,39 +8,82 @@
 
 import Foundation
 
-// need array shrinking :-/
+public class Towards<N> : LazySeq<N> where N : Integral {
+  var from : N
+  var destination : N
+  
+  init(from : N, destination : N) {
+    self.from = from
+    self.destination = destination
+  }
+  
+  public override func iter() -> Iter<N> {
+    return TowardsIter(from: from, destination: destination)
+  }
+}
 
-public func towards<N>(from: N, destination: N) -> [N] where N : Integral {
-  if from == destination {
-    return []
-  } else {
-    var h = (destination / 2) - (from / 2)
-    var out : [N] = [from]
-    while h > 0 {
+public class TowardsIter<N> : Iter<N> where N : Integral {
+  var h : N
+  var destination : N
+  var current : N?
+ 
+  public init(from: N, destination: N) {
+    self.destination = destination
+    self.current = from
+    self.h = (destination / 2) - (from / 2)
+  }
+  
+  public override func next() -> N? {
+    let c = self.current
+    
+    if h > 0 {
       let ele = destination - h
-      if let last = out.last, last == ele {
-        // don't put the same element on twice
+      if ele == c {
+        self.current = nil
       } else {
-        out.append(ele)
+        self.current = ele
       }
-      h /= 2
+    } else {
+      self.current = nil
     }
-    return out
+    
+    self.h /= 2
+    
+    return c
   }
 }
 
-// could easily be an iterator instead but ... swift
-public func towardsFrac<F>(from: F, destination: F, count: Int) -> [F] where F : Fractional {
-  if from == destination {
-    return []
-  } else {
-    var h = (destination / 2.0) - (from / 2.0)
-    var out : [F] = [from]
-    for _ in 1..<count {
-      out.append(destination - h)
-      h /= 2.0
-    }
-    return out
+public class TowardsFrac<F> : LazySeq<F> where F : Fractional {
+  var from : F
+  var destination : F
+  
+  public init(from : F, destination : F) {
+    self.from = from
+    self.destination = destination
+  }
+  
+  public override func iter() -> Iter<F> {
+    return TowardsFracIter(from: from, destination: destination)
   }
 }
+
+public class TowardsFracIter<F> : Iter<F> where F : Fractional {
+  var h : F
+  var destination : F
+  var current : F
+
+  public init(from: F, destination : F) {
+    self.h = (destination / 2.0) - (from / 2.0)
+    self.destination = destination
+    self.current = from
+  }
+  
+  public override func next() -> F? {
+    let c = self.current
+    self.current = destination - h
+    h /= 2.0
+    return c
+  }
+}
+
 
