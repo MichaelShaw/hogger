@@ -135,7 +135,7 @@ public final class Random : CustomStringConvertible {
     if upperBound == 0 {
       return 0
     } else {
-      return Math.modulusWithoutSign(nextPositiveInt(), n: Int(upperBound + 1)) // inclusive
+      return Math.modulusWithoutSign(nextPositiveInt(), n: Int(upperBound )) // inclusive
     }
   }
   
@@ -143,7 +143,7 @@ public final class Random : CustomStringConvertible {
     if upperBound == 0 {
       return 0
     } else {
-      return Math.modulusWithoutSign(nextPositiveInt64(), n: Int64(upperBound + 1)) // inclusive
+      return Math.modulusWithoutSign(nextPositiveInt64(), n: Int64(upperBound)) // inclusive
     }
   }
   
@@ -151,7 +151,7 @@ public final class Random : CustomStringConvertible {
     if upperBound == 0 {
       return 0
     } else {
-      return Math.modulusWithoutSign(nextPositiveInt32(), n: Int32(upperBound + 1)) // inclusive
+      return Math.modulusWithoutSign(nextPositiveInt32(), n: Int32(upperBound)) // inclusive
     }
   }
   
@@ -171,7 +171,7 @@ public final class Random : CustomStringConvertible {
     } else if l > h {
       return nextInt32(l: h, h: l)
     } else {
-      let rangeSize = h - l + 1
+      let rangeSize = h - l
       return l + Math.modulusWithoutSign(nextPositiveInt32(), n:rangeSize)
     }
   }
@@ -182,8 +182,26 @@ public final class Random : CustomStringConvertible {
     } else if l > h {
       return nextInt(l: h, h: l)
     } else {
-      let rangeSize = h - l + 1
+      let rangeSize = h - l
       return l + Math.modulusWithoutSign(nextPositiveInt(), n:rangeSize)
+    }
+  }
+  
+  public func nextIntegral<N>() -> N where N : Integral {
+    let a = source.nextUInt32()
+    let b = source.nextUInt32()
+    
+    return N(truncatingIfNeeded: a) // is horribly wrong
+  }
+  
+  public func nextIntegral<N>(l: N, h: N) -> N where N : Integral {
+    if l == h {
+      return l
+    } else if l > h {
+      return nextIntegral(l: h, h: l)
+    } else {
+      let rangeSize = h - l
+      return l + Math.modulusIntWithoutSign(nextIntegral(), n:rangeSize)
     }
   }
   
@@ -193,7 +211,7 @@ public final class Random : CustomStringConvertible {
     } else if l > h {
       return nextInt64(l: h, h: l)
     } else {
-      let rangeSize = h - l + 1
+      let rangeSize = h - l
       return l + Math.modulusWithoutSign(nextPositiveInt64(), n:rangeSize)
     }
   }

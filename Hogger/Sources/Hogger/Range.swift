@@ -9,89 +9,89 @@
 import Foundation
 
 
-public struct Range<A> {
+public struct Bounds<A> {
   public let origin : A
-  public let bounds : (Size) -> (A, A)
+  public let extents : (Size) -> (A, A)
   
   public func lowerBound(forSize size: Size) -> A {
-    return bounds(size).0
+    return extents(size).0
   }
   
   public func upperBound(forSize size: Size) -> A {
-    return bounds(size).1
+    return extents(size).1
   }
   
-  static func single(a:A) -> Range<A> {
-    return Range(origin: a, bounds: { _ in (a, a) })
+  static func single(a:A) -> Bounds<A> {
+    return Bounds(origin: a, extents: { _ in (a, a) })
   }
   
-  static func constantFrom(origin: A, lower: A, upper: A) -> Range<A> {
-    return Range(origin: origin, bounds: { _ in (lower, upper)})
+  static func constantFrom(origin: A, lower: A, upper: A) -> Bounds<A> {
+    return Bounds(origin: origin, extents: { _ in (lower, upper)})
   }
   
-  static func constant(lower: A, upper: A) -> Range<A> {
+  static func constant(lower: A, upper: A) -> Bounds<A> {
     return constantFrom(origin: lower, lower: lower, upper: upper)
   }
+  
+  public func map<B>(range: Bounds<A>, f: @escaping (A) -> B) -> Bounds<B> {
+    return Bounds<B>(origin: f(range.origin), extents: { size in
+      let (l, u) = range.extents(size)
+      return (f(l), f(u))
+    })
+  }
 }
 
-public func map<A, B>(range: Range<A>, f: @escaping (A) -> B) -> Range<B> {
-  return Range(origin: f(range.origin), bounds: { size in
-    let (l, u) = range.bounds(size)
-    return (f(l), f(u))
-  })
-}
-
-public func linear<N>(lower: N, upper : N) -> Range<N> where N : Integral {
+public func linear<N>(lower: N, upper : N) -> Bounds<N> where N : Integral {
   return linearFrom(origin: lower, lower: lower, upper: upper)
 }
 
-public func linearFrac<F>(lower:F, upper:F) -> Range<F> where F : Fractional {
+public func linearFrac<F>(lower:F, upper:F) -> Bounds<F> where F : Fractional {
   return linearFracFrom(origin: lower, lower: lower, upper: upper)
 }
 
-public func exponential<N>(lower: N, upper : N) -> Range<N> where N : Integral {
+public func exponential<N>(lower: N, upper : N) -> Bounds<N> where N : Integral {
   return exponentialFrom(origin: lower, lower: lower, upper: upper)
 }
 
-public func exponentialFrac<F>(lower: F, upper : F) -> Range<F> where F : Fractional {
+public func exponentialFrac<F>(lower: F, upper : F) -> Bounds<F> where F : Fractional {
   return exponentialFracFrom(origin: lower, lower: lower, upper: upper)
 }
 
-// only unsigned integers can safely express the diff between min <-> max
-public func linearBounded<N>() -> Range<N> where N : Integral & UnsignedInteger {
+// only unsigned integers can safely express the (N.max - N.min)
+public func linearBounded<N>() -> Bounds<N> where N : Integral & UnsignedInteger {
   return linearFrom(origin: 0, lower: N.min, upper: N.max)
 }
 
-public func exponentialBounded<N>() -> Range<N> where N : Integral & UnsignedInteger {
+public func exponentialBounded<N>() -> Bounds<N> where N : Integral & UnsignedInteger {
   return exponentialFrom(origin: 0, lower: N.min, upper: N.max)
 }
 
-public func linearFrom<N>(origin: N, lower:N, upper:N) -> Range<N> where N: Integral {
-  return Range(origin: origin, bounds: { size in
+public func linearFrom<N>(origin: N, lower:N, upper:N) -> Bounds<N> where N: Integral {
+  return Bounds(origin: origin, extents: { size in
     let lowerSized = clamp(scaleLinear(size:size, a: origin, b: lower), lower, upper)
     let upperSized = clamp(scaleLinear(size:size, a: origin, b: upper), lower, upper)
     return (lowerSized, upperSized)
   })
 }
 
-public func linearFracFrom<F>(origin: F, lower:F, upper:F) -> Range<F> where F: Fractional {
-  return Range(origin: origin, bounds: { size in
+public func linearFracFrom<F>(origin: F, lower:F, upper:F) -> Bounds<F> where F: Fractional {
+  return Bounds(origin: origin, extents: { size in
     let lowerScaled = clamp(scaleLinearFrac(size: size, a: origin, b: lower), lower, upper)
     let upperScaled = clamp(scaleLinearFrac(size: size, a: origin, b: upper), lower, upper)
     return (lowerScaled, upperScaled)
   })
 }
 
-public func exponentialFrom<N>(origin: N, lower: N, upper: N) -> Range<N> where N : Integral {
-  return Range(origin: origin, bounds: { size in
+public func exponentialFrom<N>(origin: N, lower: N, upper: N) -> Bounds<N> where N : Integral {
+  return Bounds(origin: origin, extents: { size in
     let lowerScaled = clamp(scaleExponential(size: size, a: origin, b: lower), lower, upper)
     let upperScaled = clamp(scaleExponential(size: size, a: origin, b: upper), lower, upper)
     return (lowerScaled, upperScaled)
   })
 }
 
-public func exponentialFracFrom<F>(origin: F, lower: F, upper: F) -> Range<F> where F : Fractional {
-  return Range(origin: origin, bounds: { size in
+public func exponentialFracFrom<F>(origin: F, lower: F, upper: F) -> Bounds<F> where F : Fractional {
+  return Bounds(origin: origin, extents: { size in
     let lowerScaled = clamp(scaleExponentialFrac(size: size, a: origin, b: lower), lower, upper)
     let upperScaled = clamp(scaleExponentialFrac(size: size, a: origin, b: upper), lower, upper)
     return (lowerScaled, upperScaled)

@@ -41,6 +41,10 @@ public struct Math {
     return (a % (n + n)) % n
   }
   
+  public static func modulusIntWithoutSign<N>(_ a: N, n: N) -> N where N : Integral {
+    return (a % (n + n)) % n
+  }
+  
   public static func modulusWithoutSign(_ a:Double, n:Double) -> Double {
     return a.truncatingRemainder(dividingBy: n)
   }

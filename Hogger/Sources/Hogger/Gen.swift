@@ -10,7 +10,7 @@ public typealias Size = Int
 typealias Rng = Random
 
 // should we make our generators fallible? (so we can define filter?)
-struct Gen<T> {
+public struct Gen<T> {
   let unGen : (Size, Rng) -> Tree<T>
   
   func map<B>(f: @escaping (T) -> B) -> Gen<B> {
@@ -28,5 +28,21 @@ struct Gen<T> {
         return genB.unGen(size, rng)
       }
     })
+  }
+}
+
+public struct Gens {
+  public static func integral<N>(range: Bounds<N>) -> Gen<N> where N : Integral {
+    return Gen<N> { (size, rng) in
+      let (l, h) = range.extents(size)
+      let n = rng.nextIntegral(l: l, h: h)
+      return treeFor(a: n, shrink: { n in
+        if n == range.origin {
+          return LazySeqF<N> { EmptyIter<N>() }
+        } else {
+          return Towards<N>(from: range.origin, destination: n)
+        }
+      })
+    }
   }
 }
