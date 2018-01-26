@@ -42,6 +42,7 @@ public struct Math {
   }
   
   public static func modulusIntWithoutSign<N>(_ a: N, n: N) -> N where N : Integral {
+    
     return (a % (n + n)) % n
   }
   

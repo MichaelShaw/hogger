@@ -32,16 +32,55 @@ public struct Gen<T> {
 }
 
 public struct Gens {
+  public static func int8(range: Bounds<Int8>) -> Gen<Int8> {
+    return integral(range: range)
+  }
+  
+  public static func int16(range: Bounds<Int16>) -> Gen<Int16> {
+    return integral(range: range)
+  }
+  
+  public static func int32(range: Bounds<Int32>) -> Gen<Int32> {
+    return integral(range: range)
+  }
+  
+  public static func int64(range: Bounds<Int64>) -> Gen<Int64> {
+    return integral(range: range)
+  }
+  
+  public static func uint8(range: Bounds<UInt8>) -> Gen<UInt8> {
+    return integral(range: range)
+  }
+  
+  public static func uint16(range: Bounds<UInt16>) -> Gen<UInt16> {
+    return integral(range: range)
+  }
+  
+  public static func uint32(range: Bounds<UInt32>) -> Gen<UInt32> {
+    return integral(range: range)
+  }
+  
+  public static func uint64(range: Bounds<UInt64>) -> Gen<UInt64> {
+    return integral(range: range)
+  }
+  
+  public static func fractional<F>(range: Bounds<F>) -> Gen<F> where F : Fractional {
+    return Gen<F> { (size, rng) in
+      let (l, h) = range.extents(size)
+      let d = rng.nextDouble(toDouble(l), toDouble(h))
+      let fd = F(d)
+      return treeFor(a: fd, shrink: { f in
+        return TowardsFrac<F>(from: range.origin, destination: f)
+      })
+    }
+  }
+  
   public static func integral<N>(range: Bounds<N>) -> Gen<N> where N : Integral {
     return Gen<N> { (size, rng) in
       let (l, h) = range.extents(size)
       let n = rng.nextIntegral(l: l, h: h)
       return treeFor(a: n, shrink: { n in
-        if n == range.origin {
-          return LazySeqF<N> { EmptyIter<N>() }
-        } else {
-          return Towards<N>(from: range.origin, destination: n)
-        }
+        return Towards<N>(from: range.origin, destination: n)
       })
     }
   }

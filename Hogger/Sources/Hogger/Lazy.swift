@@ -79,6 +79,14 @@ public class LazySeq<A> {
   public func chain(_ other: LazySeq<A>) -> LazySeq<A> {
     return ChainSeq(a: self, b: other)
   }
+  public func count() -> Int {
+    let it = self.iter()
+    var c = 0
+    while let _ = it.next() {
+      c += 1
+    }
+    return c
+  }
   public func collect() -> [A] {
     let it = self.iter()
     var out : [A] = []
@@ -138,6 +146,12 @@ public class MapSeq<A, B> : LazySeq<B> {
   
   public override func iter() -> Iter<B> {
     return MapIter(source: source.iter(), f: f)
+  }
+}
+
+public class EmptySeq<A> : LazySeq<A> {
+  public override func iter() -> Iter<A> {
+    return EmptyIter()
   }
 }
 

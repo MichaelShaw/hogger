@@ -25,4 +25,5 @@ class ShrinkTests: XCTestCase {
     let b = Array(TowardsFrac(from: 1.0, destination: 0.5).iter().prefix(7))
     XCTAssert(b.count == 7 && Math.approxEqual(b.last!, 0.5078125, epsilon: 0.01), "towards(1.0, 0.5, 7) was \(b)")
   }
+
 }

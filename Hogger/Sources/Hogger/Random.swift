@@ -188,10 +188,8 @@ public final class Random : CustomStringConvertible {
   }
   
   public func nextIntegral<N>() -> N where N : Integral {
-    let a = source.nextUInt32()
-    let b = source.nextUInt32()
-    
-    return N(truncatingIfNeeded: a) // is horribly wrong
+    let uint = self.nextUInt64()
+    return N(truncatingIfNeeded: uint) // is horribly wrong
   }
   
   public func nextIntegral<N>(l: N, h: N) -> N where N : Integral {
@@ -200,8 +198,9 @@ public final class Random : CustomStringConvertible {
     } else if l > h {
       return nextIntegral(l: h, h: l)
     } else {
-      let rangeSize = h - l
-      return l + Math.modulusIntWithoutSign(nextIntegral(), n:rangeSize)
+      let rangeSize = UInt64(h - l)
+      let ni : UInt64 = nextUInt64()
+      return l + N(Math.modulusIntWithoutSign(ni, n:rangeSize))
     }
   }
   

@@ -29,8 +29,8 @@ public class TowardsIter<N> : Iter<N> where N : Integral {
  
   public init(from: N, destination: N) {
     self.destination = destination
-    self.current = from
     self.h = (destination / 2) - (from / 2)
+    self.current = (from == destination ? nil : from)
   }
   
   public override func next() -> N? {
@@ -70,19 +70,23 @@ public class TowardsFrac<F> : LazySeq<F> where F : Fractional {
 public class TowardsFracIter<F> : Iter<F> where F : Fractional {
   var h : F
   var destination : F
-  var current : F
+  var current : F?
 
   public init(from: F, destination : F) {
-    self.h = (destination / 2.0) - (from / 2.0)
+    self.h = (destination - from)
     self.destination = destination
-    self.current = from
+    self.current = destination - h
   }
   
   public override func next() -> F? {
-    let c = self.current
-    self.current = destination - h
-    h /= 2.0
-    return c
+    if self.current != self.destination {
+      let c = self.current
+      h /= 2.0
+      self.current = destination - h
+      return c
+    } else {
+      return nil
+    }
   }
 }
 
