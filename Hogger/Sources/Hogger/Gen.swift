@@ -10,6 +10,8 @@ public typealias Size = Int
 typealias Rng = Random
 
 // should we make our generators fallible? (so we can define filter?)
+// this is a shrinking gen
+// if we want some zero overhead stuff, we want a gen that does not emit a tree
 public struct Gen<T> {
   let unGen : (Size, Rng) -> Tree<T>
   
@@ -20,13 +22,21 @@ public struct Gen<T> {
     })
   }
   
-  func flatMap<B>(f: @escaping (T) -> Gen<B>) -> Gen<B> {
+  public func flatMap<B>(f: @escaping (T) -> Gen<B>) -> Gen<B> {
     return Gen<B>(unGen: { (size, rng) -> Tree<B> in
       let treeA = self.unGen(size, rng)
       return treeA.flatMap { a -> Tree<B> in
         let genB = f(a)
         return genB.unGen(size, rng)
       }
+    })
+  }
+  
+  // this is just a convenience for map to test resutl
+  public func forall(f: @escaping (T) -> TestResult) -> Gen<TestResult> {
+    return Gen<TestResult>(unGen: { (size, rng) -> Tree<TestResult> in
+      let treeA = self.unGen(size, rng)
+      return treeA.map(f: f)
     })
   }
 }

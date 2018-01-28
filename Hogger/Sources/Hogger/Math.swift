@@ -25,6 +25,8 @@ public struct Math {
     return abs(lhs - rhs) < epsilon
   }
   
+  // perhaps we should branch, to help prevent overflow, I don't like this (n+n) stuff
+  
   public static func modulusWithoutSign(_ a:Int, n:Int) -> Int {
     return (a % (n + n)) % n
   }

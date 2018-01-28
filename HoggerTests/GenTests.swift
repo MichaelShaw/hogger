@@ -21,14 +21,14 @@ class GenTests: XCTestCase {
   
   func testIntegral() {
     let gen = Gens.integral(range: linear(lower: 1, upper: 200))
-    let rng = XorSource.iteratedTimeBased()
+    let rng = XorSource.fromArc()
     let tree = gen.unGen(30, rng)
     print(tree: tree)
   }
   
   func testFractional() {
     let gen : Gen<Double> = Gens.fractional(range: linearFrac(lower: 1.1, upper: 20.9))
-    let rng = XorSource.iteratedTimeBased()
+    let rng = XorSource.fromArc()
     let tree = gen.unGen(30, rng)
     print(tree: tree)
   }

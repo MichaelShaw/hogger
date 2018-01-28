@@ -31,11 +31,18 @@ public final class XorSource : RandomSource {
   var y : UInt32
   var z : UInt32
   
-  init(w: UInt32, x:UInt32, y:UInt32, z:UInt32) {
+  public init(w: UInt32, x:UInt32, y:UInt32, z:UInt32) {
     self.w = w
     self.x = x
     self.y = y
     self.z = z
+  }
+  
+  public init(seed:Seed) {
+    self.w = seed.w
+    self.x = seed.x
+    self.y = seed.y
+    self.z = seed.z
   }
   
   public func nextUInt32() -> UInt32 {
@@ -52,31 +59,26 @@ public final class XorSource : RandomSource {
   public var description : String {
     return "XorSource(w:\(w), x:\(x), y:\(y), z:\(z))"
   }
+  
+  public static func fromArc() -> Random {
+    let seed = Seed.fromArc()
+    return Random(source: XorSource(seed: seed))
+  }
 }
 
-public extension XorSource {
-  public static func iteratedTimeBased() -> Random {
-    let instantMs = Int64(Date().timeIntervalSinceReferenceDate * 1000)
-    let w = UInt32(truncatingIfNeeded: instantMs)
-    return iterated(w:w, x:0, y:0, z:0)
-  }
+
+public struct Seed {
+  var w: UInt32
+  var x: UInt32
+  var y: UInt32
+  var z: UInt32
   
-  public static func iterated(w:UInt32) -> Random {
-    return iterated(w:w, x:21389, y:142879, z:124987)
-  }
-  
-  public static func iterated(w:UInt32, x:UInt32, y:UInt32, z:UInt32) -> Random {
-    let sw = UInt32(0x193a6754 as UInt32) ^ w
-    let sx = UInt32(0xa8a7d469 as UInt32) ^ x
-    let sy = UInt32(0x97830e05 as UInt32) ^ y
-    let sz = UInt32(0x113ba7bb as UInt32) ^ z
-    
-    let source = XorSource(w: sw, x: sx, y: sy, z: sz)
-    for _ in 0..<100 {
-      let _ = source.nextUInt32()
-    }
-    
-    return Random(source: source)
+  public static func fromArc() -> Seed {
+    let w = arc4random()
+    let x = arc4random()
+    let y = arc4random()
+    let z = arc4random()
+    return Seed(w: w, x: x, y: y, z: z)
   }
 }
 
@@ -99,12 +101,16 @@ public final class Random : CustomStringConvertible {
     return (UInt64(source.nextUInt32()) << 32) | UInt64(source.nextUInt32())
   }
   
-  public func nextInt64() -> Int64 {
-    return Int64(bitPattern: nextUInt64())
+  public func nextInt8() -> Int8 {
+    return Int8(truncatingIfNeeded: source.nextUInt32())
   }
   
   public func nextInt32() -> Int32 {
     return Int32(bitPattern: source.nextUInt32())
+  }
+  
+  public func nextInt64() -> Int64 {
+    return Int64(bitPattern: nextUInt64())
   }
   
   public func nextPositiveInt32() -> Int32 {
@@ -226,9 +232,9 @@ public final class Random : CustomStringConvertible {
   }
   
   public func nextDouble() -> Double {
-    let upperMaask = UInt64(0x3FF0000000000000 as UInt64)
+    let upperMask = UInt64(0x3FF0000000000000 as UInt64)
     let lowerMask = UInt64(0xFFFFFFFFFFFFF as UInt64)
-    let tmp = upperMaask | (nextUInt64() & lowerMask)
+    let tmp = upperMask | (nextUInt64() & lowerMask)
     let result = Double(bitPattern: tmp)
     return result - 1.0
   }
