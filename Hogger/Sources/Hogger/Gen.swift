@@ -33,7 +33,7 @@ public struct Gen<T> {
   }
   
   // this is just a convenience for map to test resutl
-  public func forall(f: @escaping (T) -> TestResult) -> Gen<TestResult> {
+  public func check(f: @escaping (T) -> TestResult) -> Gen<TestResult> {
     return Gen<TestResult>(unGen: { (size, rng) -> Tree<TestResult> in
       let treeA = self.unGen(size, rng)
       return treeA.map(f: f)
